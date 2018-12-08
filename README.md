@@ -1,6 +1,10 @@
 # lambda-layer-bundles
 Premade packages to run on aws lambda layers
 
+## How to use
+
+Simply upload the zip to an S3 bucket, and create the AWS lambda layer by pointing it to the zip file. 
+
 
 ## Python
 
