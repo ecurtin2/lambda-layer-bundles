@@ -1,13 +1,10 @@
 # Pandas
----------
+
 
 Pandas library and dependencies for python 3.7 runtime
 
+## Packages
 
----------
-
-Packages
----------
 
 bin
 
