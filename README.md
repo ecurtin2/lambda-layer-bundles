@@ -18,3 +18,13 @@ Library   | 2.7 | 3.6 | 3.7 |
 --------- | --- | --- | --- |
 Altair    |     |     |  Y  |
 Pandas    |     |     |  Y  |
+
+
+## Creating new layers
+
+Right now layers are built using the layer_package.sh on an amazon EC2 instance. 
+
+
+## Contributing
+
+Further improvements always welcome! If you decide to add more functionality consider submitting a PR :)
