@@ -34,8 +34,10 @@ Further improvements always welcome! If you decide to add more functionality con
 
 Not necesarily in a particular order:
   - Build on docker image instead of EC2
+    - Companion Dev / Deploy Machine Learning Docker image / layer (build model locally on image, deploy to layer)
   - Add conda support instead of pipenv
   - runtimes other than python?
   - Publicly available premade layers in one central place
   - Ensure compatibility between as many layers as possible, so they may be combined. 
   - Lambda function to build lambda layers?
+
