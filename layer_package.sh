@@ -14,7 +14,7 @@
 
 LAYER_NAME=datascience-python37
 ZIP_FILE=$LAYER_NAME.zip
-S3_BUCKET=broadspire-lambda-layers
+S3_BUCKET=<BUCKET_HERE>
 
 # Change if you know what you're doing.
 # Might want to just change python version and keep
