@@ -14,16 +14,14 @@ Y = Yes it is here
 N = Tried but failed to create
 empty = Did not try to make
 
-Library   | 2.7 | 3.6 | 3.7 |
---------- | --- | --- | --- |
-Altair    |     |     |  Y  |
-Pandas    |     |     |  Y  |
+List of Packages I tried but couldn't get to fit into the unzipped deployment size:
+
+  - Tensorflow (269MB)
+  - PyTorch (259MB)
 
 
 ## Creating new layers
 
-Right now layers are built using the layer_package.sh on an amazon EC2 instance. 
-The layers are created using pipenv as shown [here](https://nordcloud.com/lambda-layers-for-python-runtime/). 
 
 
 ## Contributing
