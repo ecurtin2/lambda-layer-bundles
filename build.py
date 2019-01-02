@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
 
 layer_name = 'pandas-py37'
 image = 'layer-py37'
-bucket = 'broadspire-lambda-layers'
+bucket = '<BUCKET_HERE>'
 
 cmd = [
     'docker', 'run', 
