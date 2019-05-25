@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  make:
+    build: .
+    volumes:
+      - ./requirements.txt:/code/requirements.txt
+      - ~/.aws:/root/.aws
+    working_dir: /code
+

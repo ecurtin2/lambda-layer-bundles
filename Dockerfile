@@ -1,11 +1,7 @@
-FROM python:3.6
+FROM python:3.7
 
-ENV PY_DIR build/python/lib/python3.6/site-packages
+COPY builder_requirements.txt .
+RUN pip install -r builder_requirements.txt
+COPY ./make_layer.py /code/make_layer.py
 
-RUN apt-get update
-RUN apt-get install zip -y
-
-RUN pip install awscli
-
-COPY ./layer_package.sh .
-ENTRYPOINT bash layer_package.sh
+ENTRYPOINT [ "python", "make_layer.py" ]
