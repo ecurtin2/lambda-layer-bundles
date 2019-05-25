@@ -101,7 +101,10 @@ def publish_layer(
 
     lamduh = boto3.client("lambda")
     response = lamduh.publish_layer_version(
-        LayerName=name, Description=description, Content={"ZipFile": zipfile}
+        LayerName=name,
+        Description=description,
+        Content={"ZipFile": zipfile},
+        CompatibleRuntimes=compatible_runtimes,
     )
 
     keys = [
@@ -134,10 +137,11 @@ def publish_layer(
 @click.option("--s3_bucket", required=False, help="S3 bucket path for package storage.")
 def main(name, requirements, s3_bucket, desc, py_version):
     build_dir = Path("tmp/build")
+    pack_dir = build_dir / f"python/lib/python{py_version}/site-packages"
 
     try:
-        pip_install(requirements, build_dir)
-        shrink(build_dir)
+        pip_install(requirements, pack_dir)
+        shrink(pack_dir)
         print("Zipping...")
         make_archive(name, "zip", build_dir)
         with open(name + ".zip", "rb") as f:
