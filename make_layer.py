@@ -68,34 +68,6 @@ def shrink(directory: str):
     print(f"Shrunken size of package: {size_recursive_mb(path):.3f} MB")
 
 
-def upload_to_s3(file_name, bucket, object_name=None):
-    """Upload a file to an S3 bucket
-
-    Parameters
-    -----------
-    file_name 
-        File to upload
-    bucket 
-        Bucket to upload to
-    object_name
-        S3 object name. If not specified then file_name is used
-    
-    Returns
-    --------
-    True if file was uploaded, else False
-    """
-
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = file_name
-
-    # Upload the file
-    s3_client = boto3.client("s3")
-
-    # If fails, it will throw clientException
-    s3_client.upload_file(file_name, bucket, object_name)
-
-
 def publish_layer(
     zipfile: bytes, name: str, description: str, compatible_runtimes: List[str]
 ):
@@ -131,12 +103,10 @@ def publish_layer(
 @click.argument("requirements", nargs=-1)
 @click.option("--name", required=True, help="Name of the resulting layer.")
 @click.option("--desc", required=True, help="Description for lambda layer")
-@click.option("--s3_bucket", required=False, help="S3 bucket path for package storage.")
-def main(requirements, name,  desc, s3_bucket):
-
+def main(requirements, name, desc):
 
     build_dir = Path("tmp/build")
-    
+
     info = sys.version_info
     py_version = f"{info.major}.{info.minor}"
     pack_dir = build_dir / f"python/lib/python{py_version}/site-packages"
