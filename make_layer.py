@@ -4,14 +4,15 @@ from pathlib import Path
 from pprint import pprint
 from shutil import make_archive, rmtree
 from subprocess import run
-from typing import List
+import sys
+from typing import List, Optional
 from zipfile import ZipFile
 
 import boto3
 import click
 
 
-def pip_install(requirements: str, build_dir: str):
+def pip_install(requirements: Optional[List[str]], build_dir: str):
     """Use pip to install requirements.txt to build dir
     
     Parameters
@@ -23,7 +24,11 @@ def pip_install(requirements: str, build_dir: str):
     
     """
     print(f"Installing dependencies to {build_dir}")
-    run(["pip", "install", "-r", requirements, "-t", build_dir])
+
+    if requirements is None:
+        run(["pip", "install", "-r", requirements, "-t", build_dir])
+    else:
+        run(["pip", "install", *requirements, "-t", build_dir])
 
 
 def size_recursive_mb(path: Path) -> float:
@@ -123,20 +128,17 @@ def publish_layer(
 
 
 @click.command()
+@click.argument("requirements", nargs=-1)
 @click.option("--name", required=True, help="Name of the resulting layer.")
 @click.option("--desc", required=True, help="Description for lambda layer")
-@click.option(
-    "--requirements",
-    required=False,
-    default="requirements.txt",
-    help="Path to requirements.txt file.",
-)
-@click.option(
-    "--py_version", required=False, default="3.7", help="Python version to use"
-)
 @click.option("--s3_bucket", required=False, help="S3 bucket path for package storage.")
-def main(name, requirements, s3_bucket, desc, py_version):
+def main(requirements, name,  desc, s3_bucket):
+
+
     build_dir = Path("tmp/build")
+    
+    info = sys.version_info
+    py_version = f"{info.major}.{info.minor}"
     pack_dir = build_dir / f"python/lib/python{py_version}/site-packages"
 
     try:
